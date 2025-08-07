@@ -1,0 +1,15 @@
+body{
+   
+}
+#display{
+    border: 3px solid black;
+    margin-top: 24px;
+    width: 150px;
+    height: 30px;
+    text-align: right;
+}
+.num, .opp, #equals {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+}
