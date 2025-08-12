@@ -1,5 +1,7 @@
 function add(a,b){
-    return a+b;
+    let newa=parseInt(a);
+    let newb=parseInt(b);
+    return (newa+newb);
 }
 function subtract(a,b){
     return a-b;
@@ -11,11 +13,12 @@ function divide(a,b){
     if(b===0){return "Cant divide with 0 !!!";}
     else {return a/b;}
 }
-let first;
-let second;
-let operator;
-let currentNum=0;
-let count=0;
+let first= null;
+let second= null;
+let operator= null;
+let wait=false;
+//let currentNum=0;
+//let count=0;
 const display=document.getElementById('display');
 function operate(a,b,sign){
     switch(sign){
@@ -28,36 +31,42 @@ function operate(a,b,sign){
         case '/' :
             return divide(a,b);
         default:
-            return "Invalid Operator!";
+            return b;
     }
 }
 function populateN(someValue){
-    if(isNaN(currentNum) || currentNum==0){ 
-       display.textContent+=`  ${someValue}`;
-       currentNum=someValue;
-       if(count==0){first=someValue;}
-       else{second=someValue;}
-       count++;
-    }
-    else{
-        alert('Please enter the operand first !!!');
-    }
+   if(wait){
+    display.textContent=someValue;
+    wait=false;
+   } else {
+    display.textContent=display.textContent === '0' ? someValue : display.textContent + someValue;
+   }
 }
 function populateO(someValue){
-    if(!isNaN( currentNum)){ 
-       display.textContent+=`  ${someValue}`;
-       currentNum=someValue;
-       operator=someValue;
-    }
-    else{
-        alert('Please enter the number first!!!');
-    }
+   const inputVal=parseFloat(display.textContent);
+   if(operator && wait){
+    operator=someValue;
+    return;
+   }
+   if(first===null){
+    first=inputVal;
+   } else if(operator){
+    const result=operate(first,inputVal,operator);
+    display.textContent=String(result);
+    first=result;
+   }
+   wait=true;
+   operator=someValue;
 }
 function equals(){
-    const ans=operate(first,second,operator);
-    display.textContent+=ans;
-    currentNum=0;
-    count=0;
+   if(!operator || wait) return;
+   const inputValue=parseFloat(display.textContent);
+   const result=operate(first,inputValue,operator);
+   display.textContent=String(result);
+    first=null;
+    second=null;
+    operator=null;
+    wait=false;
 }
 const buttons =document.querySelectorAll('.num');
 buttons.forEach((button)=>{
@@ -74,4 +83,8 @@ operands.forEach((button)=>{
 document.getElementById('equals').onclick=equals;
 function handles(){
     display.textContent='';
+    first=null;
+    second=null;
+    operator=null;
+    wait=false;
 }
