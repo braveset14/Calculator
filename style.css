@@ -50,6 +50,38 @@ body{
     height: 30px;
     margin: 5px;
 }*/
-@media (max-width:768px){
-
+@media (max-width: 425px) {
+    body {
+        padding-top: 50px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+    .container {
+        padding: 25px;
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    #display {
+        width: 100%;
+        height: 70px;
+        font-size: 1.5em;
+        margin-bottom: 25px;
+    }
+    
+    #buttons {
+        gap: 12px;
+    }
+    
+    #buttons button {
+        height: 65px;
+        font-size: 1.2em;
+        border-radius: 50%;
+    }
+    
+    #equals {
+        grid-column: span 2;
+        border-radius: 35px !important; /* Make equals button pill-shaped */
+    }
 }
