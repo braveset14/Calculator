@@ -13,6 +13,10 @@ function divide(a,b){
     if(b===0){return "Cant divide with 0 !!!";}
     else {return a/b;}
 }
+function reminder(a,b){
+    if(b===0){return "Cant divide with 0 !!!";}
+    else {return a%b;}
+}
 let first= null;
 let second= null;
 let operator= null;
@@ -30,11 +34,29 @@ function operate(a,b,sign){
             return multiply(a,b);
         case '/' :
             return divide(a,b);
+        case '%' :
+            return reminder(a,b);
         default:
             return b;
     }
 }
+function handleDelete() {
+    let current = display.textContent;
+    if (current.length > 1) {
+        display.textContent = current.slice(0, -1);
+    } else {
+        display.textContent = '0';
+    }
+}
 function populateN(someValue){
+    if(someValue=== '.'){
+        if(display.textContent.includes('.')){
+            return
+            ;
+        }
+        display.textContent=display.textContent === '0' ? someValue : display.textContent + someValue;
+        return;
+    }
    if(wait){
     display.textContent=someValue;
     wait=false;
@@ -88,3 +110,7 @@ function handles(){
     operator=null;
     wait=false;
 }
+const del=document.getElementById('del');
+del.addEventListener('click',()=>{
+    handleDelete();
+})
